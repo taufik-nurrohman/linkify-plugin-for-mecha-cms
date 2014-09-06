@@ -5,7 +5,7 @@ $linkify_config = File::open(PLUGIN . DS . 'linkify' . DS . 'states' . DS . 'con
 
 // Regular Expression credit to `https://github.com/jmrware/LinkifyURL`
 // Known bug: Two URL(s) separated by spaces will not be linkified correctly
-$linkify_url_pattern = '/# Rev:20100913_0900 github.com\/jmrware\/LinkifyURL
+$linkify_url_pattern = '/  # Rev:20100913_0900 github.com\/jmrware\/LinkifyURL
 # Match http & ftp URL that is not already linkified.
   # Alternative 1: URL delimited by (parentheses).
   (\()                     # $1  "(" start delimiter.
@@ -37,7 +37,7 @@ $linkify_url_pattern = '/# Rev:20100913_0900 github.com\/jmrware\/LinkifyURL
       (?!                  # Allow a "&" char only if not start of an...
         &(?:gt|\#0*62|\#x0*3e);                  # HTML ">" entity, or
       | &(?:amp|apos|quot|\#0*3[49]|\#x0*2[27]); # a [&\'"] entity if
-        [.!&\',:?;]?        # followed by optional punctuation then
+        [.!&\',:?;]?       # followed by optional punctuation then
         (?:[^a-z0-9\-._~!$&\'()*+,;=:\/?#[\]@%]|$)  # a non-URI char or EOS.
       ) &                  # If neg-assertion true, match "&" (special).
       [a-z0-9\-._~!$\'()*+,;=:\/?#[\]@%]* # More non-& URI chars (normal*).
