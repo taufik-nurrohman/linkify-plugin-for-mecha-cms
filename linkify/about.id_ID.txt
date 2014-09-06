@@ -1,0 +1,24 @@
+﻿Title: Linkify
+Author: Taufik Nurrohman
+URL: http://latitudu.com
+Version: 1.0.0
+
+====
+
+> Plugin ini akan secara otomatis mengubah teks URL Anda menjadi tautan yang bisa diklik.
+
+Kredit _Regular Expression_ kepada <https://github.com/jmrware/LinkifyURL>
+
+#### Sebelum
+
+~~~ .html
+Lorem ipsum http://example.com dolor {{url}}foo/bar sit amet.
+~~~
+
+#### Sesudah
+
+~~~ .html
+Lorem ipsum <a class="auto-link" rel="nofollow" href="http://example.com">http://example.com</a> dolor <a class="auto-link" href="{{url}}foo/bar">{{url}}foo/bar</a> sit amet.
+~~~
+
+*[URL]: Uniform Resource Locator

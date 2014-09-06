@@ -1,0 +1,24 @@
+﻿Title: Linkify
+Author: Taufik Nurrohman
+URL: http://latitudu.com
+Version: 1.0.0
+
+====
+
+> This plugin will automatically replace your plain link URL into a clickable link.
+
+_Regular Expression_ credit to <https://github.com/jmrware/LinkifyURL>
+
+#### Before
+
+~~~ .html
+Lorem ipsum http://example.com dolor {{url}}foo/bar sit amet.
+~~~
+
+#### After
+
+~~~ .html
+Lorem ipsum <a class="auto-link" rel="nofollow" href="http://example.com">http://example.com</a> dolor <a class="auto-link" href="{{url}}foo/bar">{{url}}foo/bar</a> sit amet.
+~~~
+
+*[URL]: Uniform Resource Locator
