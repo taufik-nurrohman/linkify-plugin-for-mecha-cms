@@ -1,5 +1,5 @@
 <form class="form-plugin" action="<?php echo $config->url_current; ?>/update" method="post">
-  <input name="token" type="hidden" value="<?php $linkify_config = File::open(PLUGIN . DS . 'linkify' . DS . 'states' . DS . 'config.txt')->unserialize(); echo $token; ?>">
+  <input name="token" type="hidden" value="<?php $linkify_config = File::open(PLUGIN . DS . basename(__DIR__) . DS . 'states' . DS . 'config.txt')->unserialize(); echo $token; ?>">
   <div class="grid-group">
     <span class="grid span-1 form-label"><?php echo $speak->scope; ?></span>
     <span class="grid span-5">

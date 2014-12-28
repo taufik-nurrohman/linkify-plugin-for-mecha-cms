@@ -1,7 +1,7 @@
 <?php
 
-// Load the configuration file
-$linkify_config = File::open(PLUGIN . DS . 'linkify' . DS . 'states' . DS . 'config.txt')->unserialize();
+// Load the configuration data
+$linkify_config = File::open(PLUGIN . DS . basename(__DIR__) . DS . 'states' . DS . 'config.txt')->unserialize();
 
 // Regular Expression credit to `https://github.com/jmrware/LinkifyURL`
 // Known bug: Two URL(s) separated by spaces will not be linkified correctly
@@ -53,10 +53,12 @@ foreach($linkify_config['scopes'] as $scope) {
         return preg_replace(
             array(
                 $linkify_url_pattern,
-                '#<a class="auto-link" href="(https?\:\/\/)(?!' . preg_quote($config->host, '/') . ')#'),
+                '#<a class="auto-link" href="(https?\:\/\/)(?!' . preg_quote($config->host, '/') . ')#'
+            ),
             array(
                 $linkify_url_replace,
-                '<a class="auto-link" rel="nofollow" href="$1'), // Add `rel="nofollow"` attribute in external links
+                '<a class="auto-link" rel="nofollow" href="$1' // Add `rel="nofollow"` attribute in external links
+            ),
         $content);
     });
 }
@@ -67,7 +69,7 @@ foreach($linkify_config['scopes'] as $scope) {
  * --------------
  */
 
-Route::accept($config->manager->slug . '/plugin/linkify/update', function() use($config, $speak) {
+Route::accept($config->manager->slug . '/plugin/' . basename(__DIR__) . '/update', function() use($config, $speak) {
     if( ! Guardian::happy()) {
         Shield::abort();
     }
@@ -77,7 +79,7 @@ Route::accept($config->manager->slug . '/plugin/linkify/update', function() use(
         if( ! isset($request['scopes'])) {
             $request['scopes'] = array();
         }
-        File::serialize($request)->saveTo(PLUGIN . DS . 'linkify' . DS . 'states' . DS . 'config.txt', 0600);
+        File::serialize($request)->saveTo(PLUGIN . DS . basename(__DIR__) . DS . 'states' . DS . 'config.txt', 0600);
         Notify::success(Config::speak('notify_success_updated', array($speak->plugin)));
         Guardian::kick(dirname($config->url_current));
     }
