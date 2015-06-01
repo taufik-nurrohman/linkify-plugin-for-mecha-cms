@@ -7,9 +7,6 @@
  */
 
 Route::accept($config->manager->slug . '/plugin/' . basename(__DIR__) . '/update', function() use($config, $speak) {
-    if( ! Guardian::happy()) {
-        Shield::abort();
-    }
     if($request = Request::post()) {
         Guardian::checkToken($request['token']);
         unset($request['token']); // Remove token from request array
