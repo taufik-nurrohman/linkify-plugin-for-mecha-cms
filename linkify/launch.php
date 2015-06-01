@@ -50,6 +50,7 @@ $linkify_url_replace = '$1$4$7$10$13<a class="auto-link" href="$2$5$8$11$14">$2$
 // Do auto linking
 foreach($linkify_config['scopes'] as $scope) {
     Filter::add($scope, function($content) use($config, $linkify_url_pattern, $linkify_url_replace) {
+        if(strpos($content, '<a class="auto-link"') === false) return $content;
         return preg_replace(
             array(
                 $linkify_url_pattern,
@@ -62,25 +63,3 @@ foreach($linkify_config['scopes'] as $scope) {
         $content);
     });
 }
-
-
-/**
- * Plugin Updater
- * --------------
- */
-
-Route::accept($config->manager->slug . '/plugin/' . basename(__DIR__) . '/update', function() use($config, $speak) {
-    if( ! Guardian::happy()) {
-        Shield::abort();
-    }
-    if($request = Request::post()) {
-        Guardian::checkToken($request['token']);
-        unset($request['token']); // Remove token from request array
-        if( ! isset($request['scopes'])) {
-            $request['scopes'] = array();
-        }
-        File::serialize($request)->saveTo(PLUGIN . DS . basename(__DIR__) . DS . 'states' . DS . 'config.txt', 0600);
-        Notify::success(Config::speak('notify_success_updated', array($speak->plugin)));
-        Guardian::kick(dirname($config->url_current));
-    }
-});
