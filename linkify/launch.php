@@ -1,7 +1,7 @@
 <?php
 
 // Load the configuration data
-$linkify_config = File::open(PLUGIN . DS . basename(__DIR__) . DS . 'states' . DS . 'config.txt')->unserialize();
+$linkify_config = File::open(PLUGIN . DS . File::B(__DIR__) . DS . 'states' . DS . 'config.txt')->unserialize();
 
 // Regular Expression credit to `https://github.com/jmrware/LinkifyURL`
 // Known bug: Two URL(s) separated by spaces will not be linkified correctly
@@ -50,7 +50,6 @@ $linkify_url_replace = '$1$4$7$10$13<a class="auto-link" href="$2$5$8$11$14">$2$
 // Do auto linking
 foreach($linkify_config['scopes'] as $scope) {
     Filter::add($scope, function($content) use($config, $linkify_url_pattern, $linkify_url_replace) {
-        if(strpos($content, '<a class="auto-link"') === false) return $content;
         return preg_replace(
             array(
                 $linkify_url_pattern,
@@ -58,7 +57,7 @@ foreach($linkify_config['scopes'] as $scope) {
             ),
             array(
                 $linkify_url_replace,
-                '<a class="auto-link" rel="nofollow" href="$1' // Add `rel="nofollow"` attribute in external links
+                '<a class="auto-link" rel="nofollow" href="$1' // Add `rel="nofollow"` attribute to external links
             ),
         $content);
     });
