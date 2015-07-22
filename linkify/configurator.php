@@ -13,7 +13,7 @@
     );
 
     foreach($options as $k => $v) {
-        echo '<div>' . Form::checkbox('scopes[]', $k, Text::check($k)->is($linkify_config['scopes']), $v) . '</div>';
+        echo '<div>' . Form::checkbox('scopes[]', $k, Text::check($k)->in($linkify_config['scopes']), $v) . '</div>';
     }
 
     ?>
