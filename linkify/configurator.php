@@ -1,5 +1,5 @@
 <form class="form-plugin" action="<?php echo $config->url_current; ?>/update" method="post">
-  <?php $linkify_config = File::open(PLUGIN . DS . File::B(__DIR__) . DS . 'states' . DS . 'config.txt')->unserialize(); ?>
+  <?php $linkify_config = File::open(__DIR__ . DS . 'states' . DS . 'config.txt')->unserialize(); ?>
   <?php echo Form::hidden('token', $token); ?>
   <div class="grid-group">
     <span class="grid span-1 form-label"><?php echo $speak->scope; ?></span>
@@ -13,7 +13,7 @@
     );
 
     foreach($options as $k => $v) {
-        echo '<div>' . Form::checkbox('scopes[]', $k, Text::check($k)->in($linkify_config['scopes']), $v) . '</div>';
+        echo '<div>' . Form::checkbox('scopes[]', $k, Mecha::walk($linkify_config['scopes'])->has($k), $v) . '</div>';
     }
 
     ?>
