@@ -21,4 +21,5 @@ function do_linkify($content) {
     $content);
 }
 
+// Apply `do_linkify` filter
 Filter::add($linkify_config['scopes'], 'do_linkify');
